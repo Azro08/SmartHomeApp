@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/notificationsFragment">
+
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.example.smarthomeapp.ui.user.notifications.NotificationsFragment"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/temperatureFragment"
+        android:name="com.example.smarthomeapp.ui.user.temperature.TemperatureFragment"
+        android:label="fragment_temperature"
+        tools:layout="@layout/fragment_temperature" />
+    <fragment
+        android:id="@+id/servicesFragment"
+        android:name="com.example.smarthomeapp.ui.shared.services.ServicesFragment"
+        android:label="fragment_services"
+        tools:layout="@layout/fragment_services" >
+        <action
+            android:id="@+id/nav_services_details"
+            app:destination="@id/serviceDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/serviceDetailsFragment"
+        android:name="com.example.smarthomeapp.ui.shared.service_details.ServiceDetailsFragment"
+        android:label="fragment_service_details"
+        tools:layout="@layout/fragment_service_details" >
+        <action
+            android:id="@+id/nav_details_order_servise"
+            app:destination="@id/orderServiceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderServiceFragment"
+        android:name="com.example.smarthomeapp.ui.user.order_service.OrderServiceFragment"
+        android:label="fragment_order_service"
+        tools:layout="@layout/fragment_order_service" />
+</navigation>
