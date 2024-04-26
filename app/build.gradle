@@ -1,0 +1,116 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+    id 'com.google.gms.google-services'
+}
+
+android {
+    namespace 'com.example.smarthomeapp'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.smarthomeapp"
+        minSdk 27
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures{
+        viewBinding true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+
+dependencies {
+
+    implementation libs.core.ktx
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.constraintlayout
+    implementation libs.core.animation
+    implementation libs.swiperefreshlayout
+    implementation libs.firebase.firestore.ktx
+    implementation libs.firebase.storage.ktx
+    implementation libs.firebase.database.ktx
+    implementation libs.androidx.legacy.support.v4
+    implementation libs.androidx.activity
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+
+    implementation libs.navigation.fragment.ktx
+    implementation libs.navigation.ui.ktx
+
+    // Coroutines
+    implementation libs.kotlinx.coroutines.core
+    implementation libs.kotlinx.coroutines.android
+
+    // Coroutine Lifecycle Scopes
+    implementation libs.lifecycle.runtime.ktx
+    implementation libs.lifecycle.viewmodel.ktx
+
+    //dagger-hilt
+    implementation libs.hilt.android
+    annotationProcessor libs.hilt.compiler
+    kapt libs.hilt.android.compiler
+    kapt libs.androidx.hilt.compiler
+
+    // Import the Firebase BoM
+    implementation platform(libs.firebase.bom)
+    implementation 'com.google.firebase:firebase-auth'
+
+    // TODO: Add the dependencies for Firebase products you want to use
+    // When using the BoM, don't specify versions in Firebase dependencies
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    // Retrofit
+    implementation libs.retrofit
+    implementation libs.converter.gson
+    implementation libs.okhttp
+
+    //gif
+    implementation libs.android.gif.drawable
+
+    //circle image
+    implementation libs.circleimageview
+
+    //Glide
+    implementation libs.glide
+
+    // reflection-based flavor
+    implementation libs.viewbindingpropertydelegate.full
+
+    //Calendar view
+    implementation libs.compact.calendar.view
+
+    //Room
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    kapt(("androidx.room:room-compiler:2.4.3"))
+
+    //gson
+    implementation libs.gson
+
+    //type converter
+    coreLibraryDesugaring libs.desugar.jdk.libs
+
+}
