@@ -36,4 +36,8 @@
     <string name="edit_masters">Edit masters</string>
     <string name="history">History</string>
     <string name="show">Show</string>
+    <string name="error_loading_details">Error loading details</string>
+    <string name="service_detials">Service detials</string>
+    <string name="master">Master</string>
+    <string name="order">Order</string>
 </resources>
