@@ -1,53 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.shared.auth.AuthActivity"
-    android:padding="20dp">
+    android:background="@color/white"
+    tools:context=".ui.shared.auth.AuthActivity">
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
-        android:layout_gravity="center"
+        android:layout_width="220dp"
+        android:layout_height="200dp"
         android:background="@drawable/app_logo"
+        android:layout_marginTop="10dp"
         android:importantForAccessibility="no" />
 
-
-    <EditText
-        android:id="@+id/editTextLoginEmail"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:hint="@string/email"
-        android:layout_margin="20dp"
-        android:padding="5dp"
-        android:textColor="@color/black"
-        android:inputType="textEmailAddress"
-        android:importantForAutofill="no" />
-
-    <EditText
-        android:id="@+id/editTextLoginPassword"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:hint="@string/password"
-        android:layout_margin="20dp"
-        android:textColor="@color/black"
-        android:padding="5dp"
-        android:inputType="textPassword"
-        android:importantForAutofill="no" />
-
-    <Button
-        android:id="@+id/buttonLogin"
-        android:layout_width="match_parent"
-        android:layout_margin="20dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="@string/login"
-        android:backgroundTint="@color/dark_orange"
-        android:textSize="20sp"/>
+        android:background="@color/white"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/black"
+        app:tabTextColor="@color/blue" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/authViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
 
 </LinearLayout>

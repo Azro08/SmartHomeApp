@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.smarthomeapp.data.model.Users
+import com.example.smarthomeapp.data.model.UserDto
 import com.example.smarthomeapp.databinding.FragmentProfileBinding
 import com.example.smarthomeapp.ui.shared.auth.AuthActivity
 import com.example.smarthomeapp.util.AuthManager
@@ -76,7 +76,7 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun displayProfileDetails(user: Users) {
+    private fun displayProfileDetails(user: UserDto) {
         binding.editTextAddress.setText(user.address)
         binding.editTextPhoneNum.setText(user.phoneNumber)
     }

@@ -1,26 +1,33 @@
-package com.example.smarthomeapp.data.repository
+package com.azrosk.data.repository
 
+import android.net.Uri
 import android.util.Log
-import com.example.smarthomeapp.data.model.UserRole
-import com.example.smarthomeapp.data.model.Users
+import com.example.smarthomeapp.data.model.UserDto
+import com.example.smarthomeapp.domain.repository.UsersRepository
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.tasks.await
+import java.util.UUID
 import javax.inject.Inject
 
-class UsersRepository @Inject constructor(
+class UsersRepositoryImpl @Inject constructor(
     firestore: FirebaseFirestore,
-    private val firebaseAuth: FirebaseAuth
-) {
+    private val firebaseAuth: FirebaseAuth,
+    private val storage: FirebaseStorage,
+) : UsersRepository {
 
     private val usersCollection = firestore.collection("users")
-    suspend fun getUsers(): List<Users> {
+    suspend fun getUsers(): List<UserDto> {
         try {
             val querySnapshot = usersCollection.get().await()
-            val usersList = mutableListOf<Users>()
+            val usersList = mutableListOf<UserDto>()
             for (document in querySnapshot) {
-                val user = document.toObject(Users::class.java)
-                if (user.role != UserRole.ADMIN_ROLE.name) {
+                val user = document.toObject(UserDto::class.java)
+                if (user.role != "admin") {
                     usersList.add(user)
                 }
             }
@@ -31,17 +38,40 @@ class UsersRepository @Inject constructor(
         }
     }
 
-    suspend fun getUser(userId: String): Users? {
+
+    override suspend fun deleteUsersProducts(uid: String) {
+        val firestore = FirebaseFirestore.getInstance()
+        val productsCollection = firestore.collection("products")
+
+        val query = productsCollection.whereEqualTo("userId", uid)
+
+        val querySnapshot: QuerySnapshot = query.get().await()
+
+        val deletionTasks: MutableList<Task<Void>> = mutableListOf()
+        for (document in querySnapshot.documents) {
+            val deletionTask = productsCollection.document(document.id).delete()
+            deletionTasks.add(deletionTask)
+        }
+
+        try {
+            Tasks.await(Tasks.whenAll(deletionTasks))
+        } catch (e: Exception) {
+            Log.d("UsersRep", e.message.toString())
+        }
+    }
+
+
+    suspend fun getUser(userId: String): UserDto? {
         val userDocument = usersCollection.document(userId)
         val documentSnapshot = userDocument.get().await()
         return if (documentSnapshot.exists()) {
-            documentSnapshot.toObject(Users::class.java)
+            documentSnapshot.toObject(UserDto::class.java)
         } else {
             null
         }
     }
 
-    suspend fun deleteUser(userId: String): String {
+    override suspend fun deleteAccount(userId: String): String {
         val userDocument = usersCollection.document(userId)
         return try {
             userDocument.delete().await()
@@ -51,7 +81,7 @@ class UsersRepository @Inject constructor(
         }
     }
 
-    suspend fun saveUser(user: Users): String {
+    suspend fun saveUser(user: UserDto): String {
         return try {
             // Firestore-specific logic here
             val userDocRef = usersCollection.document(user.id)
@@ -93,25 +123,24 @@ class UsersRepository @Inject constructor(
         return result.getOrThrow()
     }
 
-    suspend fun getUserRole(): String? {
-        val uid = firebaseAuth.currentUser?.uid
-        if (uid != null) {
-            return try {
-                val userDocument = usersCollection.document(uid)
-                val documentSnapshot = userDocument.get().await()
-                if (documentSnapshot.exists()) {
-                    val userData = documentSnapshot.toObject(Users::class.java)
-                    Log.d("getUserRole", userData.toString())
-                    userData?.role
-                } else {
-                    null
-                }
+
+    suspend fun uploadImageAndGetUri(userId: String, imageUri: Uri): Uri? {
+        return try {
+            val imageFilename = "profile_images/$userId/${UUID.randomUUID()}.jpg"
+            val imageRef = storage.reference.child(imageFilename)
+
+            imageRef.putFile(imageUri).await()
+
+            // Use await to wait for the task to complete
+            try {
+                imageRef.downloadUrl.await()
             } catch (e: Exception) {
                 null
             }
+        } catch (e: Exception) {
+            null
         }
-        // Return null if the user is not logged in or any error occurs
-        return null
     }
+
 
 }

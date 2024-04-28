@@ -4,8 +4,8 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.smarthomeapp.data.model.Users
-import com.example.smarthomeapp.data.repository.UsersRepository
+import com.azrosk.data.repository.UsersRepositoryImpl
+import com.example.smarthomeapp.data.model.UserDto
 import com.example.smarthomeapp.util.ScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,11 +14,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val usersRepository: UsersRepository
+    private val usersRepository: UsersRepositoryImpl
 ) : ViewModel() {
 
-    private val _user = MutableStateFlow<ScreenState<Users?>>(ScreenState.Loading())
-    val users: MutableStateFlow<ScreenState<Users?>> = _user
+    private val _user = MutableStateFlow<ScreenState<UserDto?>>(ScreenState.Loading())
+    val users: MutableStateFlow<ScreenState<UserDto?>> = _user
 
     private val _userSaved = MutableStateFlow<ScreenState<String?>>(ScreenState.Loading())
     val userSaved: MutableStateFlow<ScreenState<String?>> = _userSaved
