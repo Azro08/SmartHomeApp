@@ -9,6 +9,7 @@ data class User(
     val fullName : String = "",
     val phoneNumber : String = "",
     val address : String = "",
+    val busyTimes : List<String> = emptyList()
 )
 
 fun User.toUserDto() = UserDto(
@@ -17,5 +18,6 @@ fun User.toUserDto() = UserDto(
     role = role,
     fullName = fullName,
     address = address,
-    phoneNumber = phoneNumber
+    phoneNumber = phoneNumber,
+    busyTimes = busyTimes
 )

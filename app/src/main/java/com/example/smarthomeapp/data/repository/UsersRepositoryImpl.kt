@@ -3,6 +3,7 @@ package com.azrosk.data.repository
 import android.net.Uri
 import android.util.Log
 import com.example.smarthomeapp.data.model.UserDto
+import com.example.smarthomeapp.data.model.UserRole
 import com.example.smarthomeapp.domain.repository.UsersRepository
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
@@ -27,7 +28,7 @@ class UsersRepositoryImpl @Inject constructor(
             val usersList = mutableListOf<UserDto>()
             for (document in querySnapshot) {
                 val user = document.toObject(UserDto::class.java)
-                if (user.role != "admin") {
+                if (user.role == UserRole.USER_ROLE.name) {
                     usersList.add(user)
                 }
             }
@@ -38,6 +39,22 @@ class UsersRepositoryImpl @Inject constructor(
         }
     }
 
+    suspend fun getMasters(): List<UserDto> {
+        try {
+            val querySnapshot = usersCollection.get().await()
+            val usersList = mutableListOf<UserDto>()
+            for (document in querySnapshot) {
+                val user = document.toObject(UserDto::class.java)
+                if (user.role == UserRole.MASTER_ROLE.name) {
+                    usersList.add(user)
+                }
+            }
+            return usersList
+        } catch (e: Exception) {
+            // Handle any errors or exceptions here
+            throw e
+        }
+    }
 
     override suspend fun deleteUsersProducts(uid: String) {
         val firestore = FirebaseFirestore.getInstance()

@@ -118,7 +118,7 @@
             <Button
                 android:id="@+id/buttonSaveProfile"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/gradient_button_background"
+                android:backgroundTint="@color/blue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.smarthomeapp.data.model.UserRole
 import com.example.smarthomeapp.databinding.ActivityMainBinding
+import com.example.smarthomeapp.ui.admin.AdminActivity
 import com.example.smarthomeapp.ui.shared.auth.AuthActivity
 import com.example.smarthomeapp.util.AuthManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,7 +45,8 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 UserRole.ADMIN_ROLE.name -> {
-                    setBottomNavBar()
+                    startActivity(Intent(this, AdminActivity::class.java))
+                    this.finish()
                 }
 
                 UserRole.MASTER_ROLE.name -> {

@@ -31,4 +31,9 @@
     <string name="price_byn">Price (BYN)</string>
     <string name="description">Description</string>
     <string name="masters">Masters</string>
+    <string name="master_id">Master ID</string>
+    <string name="busy_times">Busy times</string>
+    <string name="edit_masters">Edit masters</string>
+    <string name="history">History</string>
+    <string name="show">Show</string>
 </resources>
