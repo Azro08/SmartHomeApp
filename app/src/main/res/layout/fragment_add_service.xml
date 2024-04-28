@@ -104,6 +104,18 @@
             android:layout_gravity="center"
             android:layout_margin="20dp"/>
 
+        <Button
+            android:id="@+id/btnDeleteService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/delete"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/red"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"/>
+
+
     </LinearLayout>
 
 

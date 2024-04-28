@@ -15,7 +15,7 @@ class ServicesRepository @Inject constructor(
 
     suspend fun addService(service: Service): String {
         return try {
-            serviceCollection.document(service.id).set(service)
+            serviceCollection.document(service.id).set(service).await()
             "Done"
         } catch (e: FirebaseFirestoreException) {
             Log.d("ServicesRepository", "addService: ${e.message}")
@@ -38,7 +38,7 @@ class ServicesRepository @Inject constructor(
 
     suspend fun updateService(service: Service): String {
         return try {
-            serviceCollection.document(service.id).set(service)
+            serviceCollection.document(service.id).set(service).await()
             "Done"
         } catch (e: FirebaseFirestoreException) {
             Log.d("ServicesRepository", "updateService: ${e.message}")
@@ -48,7 +48,7 @@ class ServicesRepository @Inject constructor(
 
     suspend fun deleteService(service: Service): String {
         return try {
-            serviceCollection.document(service.id).delete()
+            serviceCollection.document(service.id).delete().await()
             "Done"
         } catch (e: FirebaseFirestoreException) {
             Log.d("ServicesRepository", "deleteService: ${e.message}")

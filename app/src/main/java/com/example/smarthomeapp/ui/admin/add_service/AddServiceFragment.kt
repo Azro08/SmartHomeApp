@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.smarthomeapp.R
 import com.example.smarthomeapp.data.model.Service
@@ -13,6 +14,7 @@ import com.example.smarthomeapp.databinding.FragmentAddServiceBinding
 import com.example.smarthomeapp.util.Constants
 import com.example.smarthomeapp.util.ScreenState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -22,7 +24,10 @@ class AddServiceFragment : Fragment(R.layout.fragment_add_service) {
     private var serviceId = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         serviceId = arguments?.getString(Constants.SERVICE_KEY) ?: ""
-        if (serviceId != "") getServiceDetails()
+        if (serviceId != "") {
+            getServiceDetails()
+            binding.btnDeleteService.visibility = View.VISIBLE
+        }
         binding.btnAddService.setOnClickListener {
             if (allFieldsFilled()) {
                 saveService()
@@ -42,8 +47,9 @@ class AddServiceFragment : Fragment(R.layout.fragment_add_service) {
                 id = id,
                 title = title,
                 price = price,
-                description =description,
-                recommendedMasters = recommendedMasters)
+                description = description,
+                recommendedMasters = recommendedMasters
+            )
             viewModel.saveService(service)
         }
     }
@@ -71,10 +77,23 @@ class AddServiceFragment : Fragment(R.layout.fragment_add_service) {
                         val price = state.data.price.toString() + " BYN"
                         binding.editTextServicePrice.setText(price)
                         binding.editTextServiceRecommendedMasters.setText(state.data.recommendedMasters)
+                        binding.btnDeleteService.setOnClickListener {
+                            viewModel.deleteService(state.data)
+                            binding.btnDeleteService.visibility = View.GONE
+                            binding.btnAddService.visibility = View.GONE
+                            navBack()
+                        }
                     }
 
                 }
             }
+        }
+    }
+
+    private fun navBack() {
+        lifecycleScope.launch {
+            delay(1000)
+            findNavController().popBackStack()
         }
     }
 

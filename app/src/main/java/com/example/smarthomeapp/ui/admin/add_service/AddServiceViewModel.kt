@@ -41,4 +41,8 @@ class AddServiceViewModel @Inject constructor(
         servicesRepository.addService(service)
     }
 
+    fun deleteService(service: Service) = viewModelScope.launch {
+        servicesRepository.deleteService(service)
+    }
+
 }
