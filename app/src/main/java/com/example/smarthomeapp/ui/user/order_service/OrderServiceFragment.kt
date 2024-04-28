@@ -45,6 +45,12 @@ class OrderServiceFragment : Fragment(R.layout.fragment_order_service) {
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         getMasters()
 
+        lifecycleScope.launch {
+            viewModel.getServices(serviceId)?.let {
+                title = it.title
+            }
+        }
+
         val myAdapter = ArrayAdapter(
             requireContext(),
             androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
@@ -113,6 +119,7 @@ class OrderServiceFragment : Fragment(R.layout.fragment_order_service) {
     private fun finishOrder(master: User) {
         val masterName = binding.spinnerMasters.selectedItem.toString()
         val clComment = binding.etClientComment.text.toString()
+        val address = binding.etBuyerAddress.text.toString()
         val date = binding.tvOrderPickedDate.text.toString()
         val hrs = binding.spPickedTime.selectedItem.toString()
         val timePicked = "$date $hrs"
@@ -137,7 +144,8 @@ class OrderServiceFragment : Fragment(R.layout.fragment_order_service) {
                 orderTime = timePicked,
                 serviceTitle = title,
                 clientComment = clComment,
-                pickedMaster = masterName
+                pickedMaster = masterName,
+                address = address
             )
 
             busyTimesList.add(timePicked)

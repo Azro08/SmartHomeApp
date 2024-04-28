@@ -23,6 +23,16 @@ class OrderRepository @Inject constructor(
         }
     }
 
+    suspend fun getUsersOrders(userEmail: String): List<Order> {
+        return try {
+            val orders = collection.whereEqualTo("buyer", userEmail).get().await().toObjects(Order::class.java)
+            orders
+        } catch (e: FirebaseFirestoreException) {
+            Log.d("OrderRepository", e.message.toString())
+            emptyList()
+        }
+    }
+
     suspend fun getOrders(): List<Order> {
         return try {
             val orders = collection.get().await().toObjects(Order::class.java)

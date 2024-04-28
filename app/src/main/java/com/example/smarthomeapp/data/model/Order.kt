@@ -10,4 +10,5 @@ data class Order (
     val pickedMaster : String = "",
     val clientComment : String = "",
     val masterComment : String = "",
+    val address : String = ""
     )

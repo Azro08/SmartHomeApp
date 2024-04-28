@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.smarthomeapp.data.model.Order
 import com.example.smarthomeapp.data.model.toUser
 import com.example.smarthomeapp.data.repository.OrderRepository
+import com.example.smarthomeapp.data.repository.ServicesRepository
 import com.example.smarthomeapp.data.repository.UsersRepositoryImpl
 import com.example.smarthomeapp.domain.model.User
 import com.example.smarthomeapp.util.ScreenState
@@ -16,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class OrderServiceViewModel @Inject constructor(
     private val repository: OrderRepository,
-    private val usersRepositoryImpl: UsersRepositoryImpl
+    private val usersRepositoryImpl: UsersRepositoryImpl,
+    private val servicesRepository: ServicesRepository
 ) : ViewModel() {
 
     private val _allMasters = MutableStateFlow<ScreenState<List<User>>>(ScreenState.Loading())
@@ -24,6 +26,8 @@ class OrderServiceViewModel @Inject constructor(
 
     private val _addOrderState = MutableStateFlow<ScreenState<String>>(ScreenState.Loading())
     val addOrderState get() = _addOrderState
+
+    suspend fun getServices(serviceId : String) = servicesRepository.getService(serviceId)
 
     init {
         getAllMasters()

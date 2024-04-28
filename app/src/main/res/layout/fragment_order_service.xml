@@ -112,6 +112,16 @@
                 android:inputType="phone"
                 android:minHeight="48dp" />
 
+            <EditText
+                android:id="@+id/etBuyerAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:hint="@string/address"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:minHeight="48dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
