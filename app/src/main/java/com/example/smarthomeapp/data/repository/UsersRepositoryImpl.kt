@@ -1,6 +1,5 @@
-package com.azrosk.data.repository
+package com.example.smarthomeapp.data.repository
 
-import android.net.Uri
 import android.util.Log
 import com.example.smarthomeapp.data.model.UserDto
 import com.example.smarthomeapp.data.model.UserRole
@@ -9,16 +8,14 @@ import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
-import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.tasks.await
-import java.util.UUID
 import javax.inject.Inject
 
 class UsersRepositoryImpl @Inject constructor(
     firestore: FirebaseFirestore,
     private val firebaseAuth: FirebaseAuth,
-    private val storage: FirebaseStorage,
 ) : UsersRepository {
 
     private val usersCollection = firestore.collection("users")
@@ -98,13 +95,13 @@ class UsersRepositoryImpl @Inject constructor(
         }
     }
 
-    suspend fun saveUser(user: UserDto): String {
+    suspend fun updateMasterBusyTimes(busyTimes: List<String>, masterId: String): String {
         return try {
-            // Firestore-specific logic here
-            val userDocRef = usersCollection.document(user.id)
-            userDocRef.set(user).await()
+            val masterDocument = usersCollection.document(masterId)
+            masterDocument.update("busyTimes", busyTimes).await()
             "Done"
-        } catch (e: Exception) {
+        } catch (e: FirebaseFirestoreException) {
+            Log.d("UsersRep", e.message.toString())
             e.message.toString()
         }
     }
@@ -138,25 +135,6 @@ class UsersRepositoryImpl @Inject constructor(
         }
 
         return result.getOrThrow()
-    }
-
-
-    suspend fun uploadImageAndGetUri(userId: String, imageUri: Uri): Uri? {
-        return try {
-            val imageFilename = "profile_images/$userId/${UUID.randomUUID()}.jpg"
-            val imageRef = storage.reference.child(imageFilename)
-
-            imageRef.putFile(imageUri).await()
-
-            // Use await to wait for the task to complete
-            try {
-                imageRef.downloadUrl.await()
-            } catch (e: Exception) {
-                null
-            }
-        } catch (e: Exception) {
-            null
-        }
     }
 
 

@@ -2,7 +2,7 @@ package com.example.smarthomeapp.ui.shared.auth.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.azrosk.data.repository.UsersRepositoryImpl
+import com.example.smarthomeapp.data.repository.UsersRepositoryImpl
 import com.example.smarthomeapp.domain.model.User
 import com.example.smarthomeapp.domain.usecase.RegisterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

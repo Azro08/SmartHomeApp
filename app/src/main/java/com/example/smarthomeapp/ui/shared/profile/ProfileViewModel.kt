@@ -4,7 +4,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.azrosk.data.repository.UsersRepositoryImpl
+import com.example.smarthomeapp.data.repository.UsersRepositoryImpl
 import com.example.smarthomeapp.data.model.UserDto
 import com.example.smarthomeapp.util.ScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel

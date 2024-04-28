@@ -8,7 +8,7 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class ServicesRepository @Inject constructor(
-    private val firebaseFirestore: FirebaseFirestore
+    firebaseFirestore: FirebaseFirestore
 ) {
 
     private val serviceCollection = firebaseFirestore.collection("services")
@@ -33,16 +33,6 @@ class ServicesRepository @Inject constructor(
         } catch (e: FirebaseFirestoreException) {
             Log.d("ServicesRepository", "getService: ${e.message}")
             null
-        }
-    }
-
-    suspend fun updateService(service: Service): String {
-        return try {
-            serviceCollection.document(service.id).set(service).await()
-            "Done"
-        } catch (e: FirebaseFirestoreException) {
-            Log.d("ServicesRepository", "updateService: ${e.message}")
-            e.message.toString()
         }
     }
 
