@@ -1,14 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background = "@color/white"
     tools:context=".ui.user.temperature.TemperatureFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="44dp"
+        android:text="@string/temperature"
+        android:textColor="@color/black"
+        android:fontFamily="cursive"
+        android:textSize="28sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/temperatureCard"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:background="@drawable/orange_rounded_edges_background"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/temperature_icon"
+            android:importantForAccessibility="no" />
+
+        <TextView
+            android:id="@+id/textViewTemperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="48sp"
+            tools:text="40C" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="44dp"
+        android:text="@string/humidity"
+        android:textColor="@color/black"
+        android:fontFamily="cursive"
+        android:textSize="28sp"
+        app:layout_constraintTop_toBottomOf="@id/temperatureCard"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/humidityCard"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+
+        android:background="@drawable/blue_rounded_edges_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView2"
+        app:layout_constraintStart_toStartOf="parent"
+
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/humidity"
+            android:layout_gravity="center"
+            android:importantForAccessibility="no" />
+
+        <TextView
+            android:id="@+id/textViewHumidity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="40C"
+            android:textColor="@color/white"
+            android:textSize="48sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginEnd="20dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tempControllerCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/humidityCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/imageButtonIncTemp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/add_icon"
+            android:contentDescription="@string/increase_temperature" />
+
+        <TextView
+            android:id="@+id/textViewEditedTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text = "40C"
+            android:textSize="48sp"
+            android:textColor="@color/black"/>
+
+        <ImageButton
+            android:id="@+id/imageButtonDecTemp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/remove_icon"
+            android:contentDescription="@string/increase_temperature" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonSetTemp"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="@string/set"
+        android:backgroundTint="@color/blue"
+        app:layout_constraintTop_toBottomOf="@id/tempControllerCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

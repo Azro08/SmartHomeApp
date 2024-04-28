@@ -44,4 +44,7 @@
     <string name="delete">Delete</string>
     <string name="date_and_time">Date and time</string>
     <string name="comment">Comment</string>
+    <string name="increase_temperature">Increase temperature</string>
+    <string name="humidity">Humidity</string>
+    <string name="set">Set</string>
 </resources>

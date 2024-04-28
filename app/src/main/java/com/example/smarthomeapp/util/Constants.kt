@@ -11,6 +11,8 @@ object Constants {
     const val USER_KEY = "user_key"
     const val ROLE_KEY = "role_key"
     const val SERVICE_KEY = "service_key"
+    const val BASE_URL = "https://api.thingspeak.com/"
+    const val API_KEY = "?api_key=XZ2YQK5H8XKZQ5ZL"
 
     fun generateRandomId(): String {
         val characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
