@@ -1,5 +1,6 @@
 package com.example.smarthomeapp.ui.admin.add_service
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -11,6 +12,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.smarthomeapp.R
 import com.example.smarthomeapp.data.model.Service
 import com.example.smarthomeapp.databinding.FragmentAddServiceBinding
+import com.example.smarthomeapp.ui.admin.AdminActivity
 import com.example.smarthomeapp.util.Constants
 import com.example.smarthomeapp.util.ScreenState
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,6 +53,7 @@ class AddServiceFragment : Fragment(R.layout.fragment_add_service) {
                 recommendedMasters = recommendedMasters
             )
             viewModel.saveService(service)
+            navBack()
         }
     }
 
@@ -74,7 +77,7 @@ class AddServiceFragment : Fragment(R.layout.fragment_add_service) {
                     is ScreenState.Success -> {
                         binding.editTextServiceTitle.setText(state.data!!.title)
                         binding.editTextServiceDescription.setText(state.data.description)
-                        val price = state.data.price.toString() + " BYN"
+                        val price = state.data.price.toString()
                         binding.editTextServicePrice.setText(price)
                         binding.editTextServiceRecommendedMasters.setText(state.data.recommendedMasters)
                         binding.btnDeleteService.setOnClickListener {
@@ -91,9 +94,11 @@ class AddServiceFragment : Fragment(R.layout.fragment_add_service) {
     }
 
     private fun navBack() {
+        binding.btnAddService.visibility = View.GONE
         lifecycleScope.launch {
             delay(1000)
-            findNavController().popBackStack()
+            startActivity(Intent(requireActivity(), AdminActivity::class.java))
+            requireActivity().finish()
         }
     }
 

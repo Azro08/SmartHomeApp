@@ -38,4 +38,9 @@
         android:name="com.example.smarthomeapp.ui.user.order_service.OrderServiceFragment"
         android:label="fragment_order_service"
         tools:layout="@layout/fragment_order_service" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.smarthomeapp.ui.shared.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

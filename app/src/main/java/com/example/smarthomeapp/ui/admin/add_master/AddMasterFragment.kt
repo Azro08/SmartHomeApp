@@ -85,7 +85,7 @@ class AddMasterFragment : DialogFragment() {
                                 getString(R.string.registration_is_done),
                                 Toast.LENGTH_SHORT
                             ).show()
-                            findNavController().popBackStack()
+                            dismiss()
                         }
                     }
 

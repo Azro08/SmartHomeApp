@@ -29,4 +29,8 @@ class ServicesViewModel @Inject constructor(
         }
     }
 
+    fun refreshServices() {
+        getServices()
+    }
+
 }

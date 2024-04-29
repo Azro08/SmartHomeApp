@@ -45,4 +45,8 @@ class EditMasterViewModel @Inject constructor(
         }
     }
 
+    fun refreshMasters() {
+        getAllMasters()
+    }
+
 }

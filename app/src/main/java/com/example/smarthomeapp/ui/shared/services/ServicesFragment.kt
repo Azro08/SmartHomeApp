@@ -37,6 +37,17 @@ class ServicesFragment : Fragment(R.layout.fragment_services) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if (authManager.getRole() == UserRole.ADMIN_ROLE.name) setMenu()
         getServices()
+        binding.swipeToRefreshLayout.setOnRefreshListener {
+            viewModel.refreshServices()
+            getServices()
+            binding.swipeToRefreshLayout.isRefreshing = false
+        }
+    }
+
+    override fun onResume() {
+        viewModel.refreshServices()
+        getServices()
+        super.onResume()
     }
 
     private fun getServices() {

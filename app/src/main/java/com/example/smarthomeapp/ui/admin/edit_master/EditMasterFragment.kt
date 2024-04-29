@@ -36,6 +36,12 @@ class EditMasterFragment : Fragment(R.layout.fragment_edit_master) {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshMasters()
+        getAllMasters()
+    }
+
     private fun setMenu() {
         requireActivity().addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
