@@ -25,8 +25,8 @@ class OrderHistoryViewModel @Inject constructor(
         getOrders()
     }
 
-    fun getUserOrders(userEmail: String) = viewModelScope.launch {
-        repository.getUsersOrders(userEmail).let {
+    fun getMasterOrders() = viewModelScope.launch {
+        repository.getMastersOrders().let {
             if (it.isNotEmpty()) _usersOrders.value = ScreenState.Success(it)
             else _usersOrders.value = ScreenState.Error("No orders found")
         }

@@ -1,5 +1,6 @@
 package com.example.smarthomeapp.ui.shared.order_history
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -12,8 +13,10 @@ import com.example.smarthomeapp.R
 import com.example.smarthomeapp.data.model.Order
 import com.example.smarthomeapp.data.model.UserRole
 import com.example.smarthomeapp.databinding.FragmentOrderHistoryBinding
+import com.example.smarthomeapp.ui.shared.auth.AuthActivity
 import com.example.smarthomeapp.util.AuthManager
 import com.example.smarthomeapp.util.ScreenState
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,12 +25,25 @@ import javax.inject.Inject
 class OrderHistoryFragment : Fragment(R.layout.fragment_order_history) {
     private val binding by viewBinding(FragmentOrderHistoryBinding::bind)
     private val viewModel: OrderHistoryViewModel by viewModels()
+
     @Inject
     lateinit var authManager: AuthManager
+
+    @Inject
+    lateinit var firebaseAuth: FirebaseAuth
     private var adapter: RvOrderAdapter? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if (authManager.getRole() == UserRole.USER_ROLE.name) getUsersOrders()
-        else if (authManager.getRole() == UserRole.ADMIN_ROLE.name) getAllOrders()
+        if (authManager.getRole() == UserRole.MASTER_ROLE.name) {
+            binding.btnLogout.visibility = View.VISIBLE
+            binding.btnLogout.setOnClickListener {
+                authManager.removeRole()
+                authManager.removeUser()
+                firebaseAuth.signOut()
+                startActivity(Intent(requireActivity(), AuthActivity::class.java))
+                requireActivity().finish()
+            }
+            getMastersOrders()
+        } else if (authManager.getRole() == UserRole.ADMIN_ROLE.name) getAllOrders()
     }
 
     private fun getAllOrders() {
@@ -49,9 +65,9 @@ class OrderHistoryFragment : Fragment(R.layout.fragment_order_history) {
         }
     }
 
-    private fun getUsersOrders() {
+    private fun getMastersOrders() {
         lifecycleScope.launch {
-            viewModel.getUserOrders(authManager.getUser())
+            viewModel.getMasterOrders()
             viewModel.usersOrder.collect { state ->
                 when (state) {
                     is ScreenState.Loading -> {}

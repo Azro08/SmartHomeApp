@@ -39,10 +39,19 @@ class OrderServiceFragment : Fragment(R.layout.fragment_order_service) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         getMasters()
-
+        serviceId = arguments?.getString(Constants.SERVICE_KEY) ?: ""
         lifecycleScope.launch {
-            viewModel.getServices(serviceId)?.let {
-                title = it.title
+            viewModel.getServices(serviceId)
+            viewModel.services.collect{
+                when (it) {
+                    is ScreenState.Loading ->{}
+                    is ScreenState.Error -> Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
+                    is ScreenState.Success -> {
+                        Log.d("OrderServiceFragment", it.data!!.title)
+                        binding.btnFinishOrder.visibility = View.VISIBLE
+                        title = it.data.title
+                    }
+                }
             }
         }
 
@@ -66,11 +75,19 @@ class OrderServiceFragment : Fragment(R.layout.fragment_order_service) {
                     ).show()
 
                     is ScreenState.Success -> {
-                        binding.btnFinishOrder.setOnClickListener {
-                            Log.d("FinishFragment", "Finish")
-                            finishOrder(state.data!!.find { it.fullName == binding.spinnerMasters.selectedItem.toString() }!!)
-                        }
-                        setSpinner(state.data!!)
+                        if (state.data != null) {
+                            binding.btnFinishOrder.setOnClickListener {
+                                Log.d("FinishFragment", state.data.toString())
+                                finishOrder(
+                                    state.data.find {
+
+                                        ("${it.fullName}: ${it.id}") == binding.spinnerMasters.selectedItem.toString()
+                                    }!!
+                                )
+                            }
+                            setSpinner(state.data)
+                        } else Toast.makeText(requireContext(), R.string.failed, Toast.LENGTH_SHORT)
+                            .show()
                     }
 
                 }
@@ -79,7 +96,8 @@ class OrderServiceFragment : Fragment(R.layout.fragment_order_service) {
     }
 
     private fun finishOrder(master: User) {
-        val masterName = binding.spinnerMasters.selectedItem.toString()
+        Log.d("FinishFragment ma", master.toString())
+        val pickedMasterNameAndId = binding.spinnerMasters.selectedItem.toString()
         val clComment = binding.etClientComment.text.toString()
         val address = binding.etBuyerAddress.text.toString()
         val timePicked = binding.tvOrderPickedDateAndTime.text.toString()
@@ -108,7 +126,7 @@ class OrderServiceFragment : Fragment(R.layout.fragment_order_service) {
                 orderTime = timePicked,
                 serviceTitle = title,
                 clientComment = clComment,
-                pickedMaster = masterName,
+                pickedMaster = pickedMasterNameAndId,
                 address = address
             )
 
@@ -147,7 +165,7 @@ class OrderServiceFragment : Fragment(R.layout.fragment_order_service) {
     private fun setSpinner(list: List<User>) {
         spinnerList.clear()
         for ((j, i) in list.withIndex()) {
-            spinnerList.add(j, i.fullName)
+            spinnerList.add(j, "${i.fullName}: ${i.id}")
         }
         val myAdapter = ArrayAdapter(
             requireContext(),

@@ -1,21 +1,19 @@
 package com.example.smarthomeapp.util
 
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import kotlin.random.Random
 
 object Constants {
-    const val ORDER_ID = "order_id"
     const val SHARED_PREF_NAME = "user_pref"
     const val USER_KEY = "user_key"
+    const val FCM_TOKEN_KEY = "fcm_token_key"
     const val ROLE_KEY = "role_key"
     const val SERVICE_KEY = "service_key"
     const val BASE_URL = "https://api.thingspeak.com/"
     const val API_KEY = "FE5DN4MB1OUV31YB"
 
     const val CHANNEL_ID = "notification_channel"
-    const val CHANNEL_NAME = "com.example.smarthomeapp"
+
+    const val SENDER_ID = 1021964565753
 
     fun generateRandomId(): String {
         val characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

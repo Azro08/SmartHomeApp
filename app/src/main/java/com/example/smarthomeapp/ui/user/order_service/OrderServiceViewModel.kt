@@ -3,6 +3,7 @@ package com.example.smarthomeapp.ui.user.order_service
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.smarthomeapp.data.model.Order
+import com.example.smarthomeapp.data.model.Service
 import com.example.smarthomeapp.data.model.toUser
 import com.example.smarthomeapp.data.repository.OrderRepository
 import com.example.smarthomeapp.data.repository.ServicesRepository
@@ -27,7 +28,15 @@ class OrderServiceViewModel @Inject constructor(
     private val _addOrderState = MutableStateFlow<ScreenState<String>>(ScreenState.Loading())
     val addOrderState get() = _addOrderState
 
-    suspend fun getServices(serviceId : String) = servicesRepository.getService(serviceId)
+    private val _services = MutableStateFlow<ScreenState<Service>>(ScreenState.Loading())
+    val services get() = _services
+
+    fun getServices(serviceId : String) = viewModelScope.launch {
+        servicesRepository.getService(serviceId).let {
+            if (it != null) _services.value = ScreenState.Success(it)
+            else _services.value = ScreenState.Error("No Services Found")
+        }
+    }
 
     init {
         getAllMasters()

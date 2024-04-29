@@ -17,6 +17,7 @@ import com.example.smarthomeapp.data.model.UserRole
 import com.example.smarthomeapp.databinding.ActivityMainBinding
 import com.example.smarthomeapp.ui.admin.AdminActivity
 import com.example.smarthomeapp.ui.shared.auth.AuthActivity
+import com.example.smarthomeapp.ui.shared.order_history.OrderHistoryFragment
 import com.example.smarthomeapp.util.AuthManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
         askNotificationPermission()
         if (!authManager.isLoggedIn()) {
             startActivity(Intent(this, AuthActivity::class.java))
@@ -53,7 +55,10 @@ class MainActivity : AppCompatActivity() {
     private fun askNotificationPermission() {
         // This is only necessary for API level >= 33 (TIRAMISU)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) ==
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.POST_NOTIFICATIONS
+                ) ==
                 PackageManager.PERMISSION_GRANTED
             ) {
                 // FCM SDK (and your app) can post notifications.
@@ -86,6 +91,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 UserRole.MASTER_ROLE.name -> {
+                    binding.navView.visibility = View.GONE
                     enterAsMaster()
                 }
             }
@@ -93,6 +99,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun enterAsMaster() {
+        this.supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_host,OrderHistoryFragment()).commit()
 
     }
 

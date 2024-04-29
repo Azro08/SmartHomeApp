@@ -7,23 +7,20 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.RemoteMessage
 import kotlinx.coroutines.tasks.await
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import javax.inject.Inject
 
 class NotificationsRepository @Inject constructor(
     private val firebaseMessaging: FirebaseMessaging,
-    private val firestore: FirebaseFirestore
+    firestore: FirebaseFirestore
 ) {
 
     private val collection = firestore.collection("notifications")
 
     // Function to send notification and save it
-    suspend fun sendNotificationAndSave(notification: Notification) : String{
+    suspend fun sendNotificationAndSave(notification: Notification): String {
         return try {
             // Send notification to topic "all_users"
-            sendNotificationToTopic(notification)
+            sendNotification(notification)
 
             // Save notification in Firestore
             saveNotificationInFirestore(notification)
@@ -51,34 +48,32 @@ class NotificationsRepository @Inject constructor(
     }
 
     // Function to send notification to all users
-    private fun sendNotificationToTopic(notification: Notification) {
+    private fun sendNotification(notification: Notification) {
         try {
-            // Build notification message
-            val message = RemoteMessage.Builder("all_users")
-                .setMessageId(Constants.generateRandomId())
-                .addData("title", notification.title)
-                .addData("message", notification.message)
+            val data = mapOf(
+                "title" to notification.title,
+                "body" to notification.message
+            )
+            val remoteMessage = RemoteMessage.Builder("${Constants.SENDER_ID}@fcm.googleapis.com")
+                .setMessageId(notification.id)
+                .apply {
+                    data.forEach { (key, value) ->
+                        addData(key, value)
+                    }
+                }
                 .build()
 
-            // Send message to topic "all_users"
-            firebaseMessaging.send(message)
+            firebaseMessaging.send(remoteMessage)
         } catch (e: Exception) {
-            Log.d("MsgExc", e.message.toString())
+            e.localizedMessage?.let { Log.d("MsgExc", it) }
         }
     }
 
     private suspend fun saveNotificationInFirestore(notification: Notification) {
         try {
-            // Generate current date and time
-            val currentDateAndTime =
-                SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date())
-
-            // Add date and time to the notification
-            val notificationWithDateTime = notification.copy(dateAndTime = currentDateAndTime)
-
-            // Save notification in Firestore
-            firestore.collection("notifications")
-                .add(notificationWithDateTime)
+            collection
+                .document(notification.id)
+                .set(notification)
                 .await()
         } catch (e: Exception) {
             // Handle exceptions

@@ -7,13 +7,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.smarthomeapp.R
 import com.example.smarthomeapp.databinding.FragmentNotificationsBinding
 import com.example.smarthomeapp.util.ScreenState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class NotificationsFragment : Fragment() {
+class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
     private val binding by viewBinding(FragmentNotificationsBinding::bind)
     private val viewModel: NotificationsViewModel by viewModels()
     private var adapter: NotificationAdapter? = null

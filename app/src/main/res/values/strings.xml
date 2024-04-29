@@ -58,4 +58,10 @@
     <string name="failed">Failed</string>
     <string name="notifications">Notifications</string>
     <string name="priority">Priority</string>
+    <string name="works">Works</string>
+    <string name="order_details">Order details</string>
+    <string name="buyer">Buyer</string>
+    <string name="client_s_comment">Client\'s comment</string>
+    <string name="master_s_comment">Master\'s comment</string>
+    <string name="logout">Logout</string>
 </resources>

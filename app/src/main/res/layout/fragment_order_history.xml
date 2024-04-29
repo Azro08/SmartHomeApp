@@ -15,9 +15,21 @@
         android:background="@drawable/app_logo"
         android:importantForAccessibility="no" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvOrderHistory"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Logout Button -->
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/blue"
+        android:layout_marginBottom="20dp"
+        android:text="@string/logout"
+        android:visibility="gone"/>
+
 </LinearLayout>

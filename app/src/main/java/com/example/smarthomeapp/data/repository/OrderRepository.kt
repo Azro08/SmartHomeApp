@@ -2,13 +2,16 @@ package com.example.smarthomeapp.data.repository
 
 import android.util.Log
 import com.example.smarthomeapp.data.model.Order
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class OrderRepository @Inject constructor(
-    firestore: FirebaseFirestore
+    firestore: FirebaseFirestore,
+    private val firebaseAuth: FirebaseAuth,
+    private val usersRepository: UsersRepositoryImpl
 ) {
 
     private val collection = firestore.collection("orders")
@@ -24,9 +27,14 @@ class OrderRepository @Inject constructor(
         }
     }
 
-    suspend fun getUsersOrders(userEmail: String): List<Order> {
+    suspend fun getMastersOrders(): List<Order> {
         return try {
-            val orders = collection.whereEqualTo("buyer", userEmail).get().await().toObjects(Order::class.java)
+            val mastersId = firebaseAuth.currentUser?.uid ?: ""
+            val mastersName = usersRepository.getUser(mastersId)?.fullName ?: ""
+            val mastersNameAndId = "$mastersName: $mastersId"
+            val orders = collection
+                .whereEqualTo("pickedMaster", mastersNameAndId)
+                .get().await().toObjects(Order::class.java)
             orders
         } catch (e: FirebaseFirestoreException) {
             Log.d("OrderRepository", e.message.toString())
@@ -41,16 +49,6 @@ class OrderRepository @Inject constructor(
         } catch (e: FirebaseFirestoreException) {
             Log.d("OrderRepository", e.message.toString())
             emptyList()
-        }
-    }
-
-    suspend fun removeOrder(id: String): String {
-        return try {
-            collection.document(id).delete().await()
-            "Done"
-        } catch (e: FirebaseFirestoreException) {
-            Log.d("OrderRepository", e.message.toString())
-            e.message.toString()
         }
     }
 
