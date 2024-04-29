@@ -12,12 +12,13 @@ interface TemperatureApiService {
     @GET("channels/2521942/feeds.json")
     suspend fun getTemperatureStats(
         @Query("api_key") apiKey: String = Constants.API_KEY,
-        @Query("results") results: Int = 2
+        @Query("results") results: Int = 1
     ) : TemperatureStatsResponse
 
     @GET("update")
     suspend fun updateTemperatureStats(
-        @Query("api_key") apiKey: String = Constants.API_KEY,
-        @Query("field1") temperature : Int
+        @Query("api_key") apiKey: String = "3V33RJSTJYNP61DZ",
+        @Query("field1") temperature : Int,
+        @Query("field2") humidity : Int
     )
 }

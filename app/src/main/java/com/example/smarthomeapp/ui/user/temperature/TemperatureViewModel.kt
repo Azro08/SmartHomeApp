@@ -19,19 +19,25 @@ class TemperatureViewModel @Inject constructor(
         MutableStateFlow<ScreenState<TemperatureStatsResponse>>(ScreenState.Loading())
     val temperature = _temperature
 
+    private val _setTemperature = MutableStateFlow<ScreenState<String>>(ScreenState.Loading())
+    val setTemperature = _setTemperature
+
     init {
         getTemperature()
     }
 
-    private fun getTemperature() = viewModelScope.launch {
+    fun getTemperature() = viewModelScope.launch {
         temperatureRepository.getTemperatureStats().let {
             if (it != null) _temperature.value = ScreenState.Success(it)
             else _temperature.value = ScreenState.Error("Error")
         }
     }
 
-    fun setTemperature(temperature: Int) = viewModelScope.launch {
-        temperatureRepository.updateTemperatureStats(temperature)
+    fun setTemperature(temperature: Int, humidity : Int) = viewModelScope.launch {
+        temperatureRepository.updateTemperatureStats(temperature, humidity).let {
+            if (it == "Done") _setTemperature.value = ScreenState.Success(it)
+            else _setTemperature.value = ScreenState.Error("Error")
+        }
     }
 
 }

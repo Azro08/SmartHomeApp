@@ -2,6 +2,7 @@ package com.example.smarthomeapp.ui.user.temperature
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -27,6 +28,7 @@ class TemperatureFragment : Fragment(R.layout.fragment_temperature) {
                 binding.textViewEditedTemp.text = currentTemp.toString()
             }
         }
+
         binding.imageButtonDecTemp.setOnClickListener {
             if (currentTemp > 10) {
                 currentTemp--
@@ -34,14 +36,15 @@ class TemperatureFragment : Fragment(R.layout.fragment_temperature) {
             }
         }
 
-        binding.buttonSetTemp.setOnClickListener {
-            viewModel.setTemperature(binding.textViewTemperature.text.toString().toInt())
+        binding.buttonRefresh.setOnClickListener {
             getTemperature()
         }
+
     }
 
     private fun getTemperature() {
         lifecycleScope.launch {
+            viewModel.getTemperature()
             viewModel.temperature.collect { state ->
                 when (state) {
                     is ScreenState.Loading -> {}
@@ -55,18 +58,52 @@ class TemperatureFragment : Fragment(R.layout.fragment_temperature) {
     }
 
     private fun displayTemperature(temperatureStatsResponse: TemperatureStatsResponse) {
-        val latestTemperature = temperatureStatsResponse.feeds.size - 1
-        val temperature = temperatureStatsResponse.feeds[latestTemperature].field1 + "C"
-        val humidity = temperatureStatsResponse.feeds[latestTemperature].field2 + "%"
+        val temperature = (temperatureStatsResponse.feeds[0].field1 ?: "") + "C"
+        val humidity = (temperatureStatsResponse.feeds[0].field2 ?: "") + "%"
         binding.textViewTemperature.text = temperature
         binding.textViewHumidity.text = humidity
-        binding.textViewEditedTemp.text = temperatureStatsResponse.feeds[latestTemperature].field1
-        currentTemp = temperatureStatsResponse.feeds[latestTemperature].field1.toInt()
+        binding.textViewEditedTemp.text = temperatureStatsResponse.feeds[0].field1
+        currentTemp = (temperatureStatsResponse.feeds[0].field1 ?: "0").toInt()
+
+        binding.buttonSetTemp.setOnClickListener {
+            viewModel.setTemperature(
+                binding.textViewEditedTemp.text.toString().toInt(),
+                (temperatureStatsResponse.feeds[0].field2 ?: "0").toInt()
+            )
+            setTemp()
+        }
+
+    }
+
+    private fun setTemp() {
+        lifecycleScope.launch {
+            viewModel.setTemperature.collect { state ->
+                when (state) {
+                    is ScreenState.Loading -> {
+                        binding.buttonSetTemp.visibility = View.GONE
+                    }
+
+                    is ScreenState.Error -> {
+                        binding.buttonSetTemp.visibility = View.VISIBLE
+                        Toast.makeText(
+                            requireContext(),
+                            state.message ?: "Failed",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    is ScreenState.Success -> {
+                        binding.buttonSetTemp.visibility = View.VISIBLE
+                        getTemperature()
+                    }
+                }
+            }
+        }
     }
 
     private fun handleError() {
-        val temperature = "20C"
-        val humidity = "50%"
+        val temperature = "C"
+        val humidity = "%"
         currentTemp = 20
         binding.textViewTemperature.text = temperature
         binding.textViewHumidity.text = humidity

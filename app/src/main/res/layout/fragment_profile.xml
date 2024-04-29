@@ -123,8 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:visibility="gone"
-                android:text="@string/save"
-                android:textColor="color/black" />
+                android:text="@string/save" />
 
             <Button
                 android:id="@+id/buttonEditProfile"

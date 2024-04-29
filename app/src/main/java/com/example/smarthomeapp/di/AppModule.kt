@@ -22,20 +22,5 @@ object AppModule {
     fun provideAuthManager(@ApplicationContext context: Context): AuthManager =
         AuthManager(context)
 
-    @Provides
-    fun provideAuthRepository(
-        firebaseAuth: FirebaseAuth,
-        firebaseFirestore: FirebaseFirestore
-    ): AuthRepository = AuthRepositoryImpl(
-        firebaseAuth, firebaseFirestore
-    )
-
-    @Provides
-    fun provideUsersRepository(
-        firebaseAuth: FirebaseAuth,
-        firebaseFirestore: FirebaseFirestore
-    ): UsersRepository = UsersRepositoryImpl(
-        firebaseFirestore, firebaseAuth
-    )
 
 }

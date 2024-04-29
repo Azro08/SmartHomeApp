@@ -14,15 +14,18 @@ class TemperatureRepository @Inject constructor(
         return try {
             temperatureApiService.getTemperatureStats()
         } catch (e: HttpException) {
+            Log.d("TempError", e.message.toString())
             null
         }
     }
 
-    suspend fun updateTemperatureStats(temperature: Int) {
-        try {
-            temperatureApiService.updateTemperatureStats(temperature = temperature)
+    suspend fun updateTemperatureStats(temperature: Int, humidity : Int) : String {
+        return try {
+            temperatureApiService.updateTemperatureStats(temperature = temperature, humidity = humidity)
+            "Done"
         } catch (e: HttpException) {
             Log.d("TempError", e.message.toString())
+            e.message.toString()
         }
     }
 

@@ -47,4 +47,5 @@
     <string name="increase_temperature">Increase temperature</string>
     <string name="humidity">Humidity</string>
     <string name="set">Set</string>
+    <string name="refresh">Refresh</string>
 </resources>

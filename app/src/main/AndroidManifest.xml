@@ -17,6 +17,9 @@
             android:name=".ui.admin.AdminActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.shared.auth.AuthActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

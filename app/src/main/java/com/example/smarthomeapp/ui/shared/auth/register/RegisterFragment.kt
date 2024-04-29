@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.smarthomeapp.ui.shared.auth.AuthActivity
 import com.example.smarthomeapp.R
+import com.example.smarthomeapp.data.model.UserRole
 import com.example.smarthomeapp.databinding.FragmentRegisterBinding
 import com.example.smarthomeapp.domain.model.User
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,7 +46,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 email = email,
                 address = address,
                 phoneNumber = phoneNumber,
-                role = "user",
+                role = UserRole.USER_ROLE.name,
                 fullName = fullName,
             )
             lifecycleScope.launch {
