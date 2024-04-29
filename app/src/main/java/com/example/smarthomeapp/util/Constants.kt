@@ -14,6 +14,9 @@ object Constants {
     const val BASE_URL = "https://api.thingspeak.com/"
     const val API_KEY = "FE5DN4MB1OUV31YB"
 
+    const val CHANNEL_ID = "notification_channel"
+    const val CHANNEL_NAME = "com.example.smarthomeapp"
+
     fun generateRandomId(): String {
         val characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         val random =

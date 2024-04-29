@@ -36,6 +36,7 @@ viewbindingpropertydelegateFull = "1.5.9"
 legacySupportV4 = "1.0.0"
 kotlin = "1.8.20"
 activity = "1.8.0"
+firebaseMessagingKtx = "23.4.1"
 
 [libraries]
 android-gif-drawable = { module = "pl.droidsonroids.gif:android-gif-drawable", version.ref = "androidGifDrawable" }
@@ -77,6 +78,7 @@ swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout"
 viewbindingpropertydelegate-full = { module = "com.github.kirich1409:viewbindingpropertydelegate-full", version.ref = "viewbindingpropertydelegateFull" }
 androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
 
 [plugins]
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

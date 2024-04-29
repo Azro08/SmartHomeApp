@@ -11,7 +11,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-object DateUtils  {
+object DateUtils {
 
     fun showDateTimePickerDialog(textView: TextView, context: Context) {
         val calendar = Calendar.getInstance()
@@ -61,6 +61,10 @@ object DateUtils  {
         datePickerDialog.show()
     }
 
+    fun getCurrentDateAndTime(): String {
+        val currentDateAndTime = Calendar.getInstance().time
+        return formatDateTime(currentDateAndTime)
+    }
 
     private fun formatDateTime(dateTime: Date): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)

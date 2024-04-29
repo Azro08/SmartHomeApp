@@ -31,6 +31,4 @@
         android:background="@color/light_blue"
         app:menu="@menu/admin_bottom_nav_bar_menu" />
 
-
-
 </LinearLayout>

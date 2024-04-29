@@ -43,4 +43,9 @@
         android:name="com.example.smarthomeapp.ui.shared.profile.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/sendNotificationFragment"
+        android:name="com.example.smarthomeapp.ui.admin.send_notification.SendNotificationFragment"
+        android:label="@string/send_notification"
+        tools:layout="@layout/fragment_send_notification" />
 </navigation>

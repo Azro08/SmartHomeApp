@@ -50,4 +50,12 @@
     <string name="refresh">Refresh</string>
     <string name="search">search</string>
     <string name="master_is_busy_at_this_time">Master is busy at this time</string>
+    <string name="permission_denied">Permission denied!</string>
+    <string name="send_notification">Send Notification</string>
+    <string name="notification_title">Notification Title</string>
+    <string name="notification_message">Notification Message</string>
+    <string name="notification_sent">Notification sent</string>
+    <string name="failed">Failed</string>
+    <string name="notifications">Notifications</string>
+    <string name="priority">Priority</string>
 </resources>

@@ -12,6 +12,11 @@
         android:title="@string/edit_masters" />
 
     <item
+        android:id="@+id/sendNotificationFragment"
+        android:title="@string/notification"
+        android:icon="@drawable/notifications_icon"/>
+
+    <item
         android:id="@+id/orderHistoryFragment"
         android:icon="@drawable/history_icon"
         android:title="@string/history" />

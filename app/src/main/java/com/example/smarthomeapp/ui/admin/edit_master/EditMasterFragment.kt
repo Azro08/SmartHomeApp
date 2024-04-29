@@ -126,11 +126,11 @@ class EditMasterFragment : Fragment(R.layout.fragment_edit_master) {
             val nameAndId = "${master.fullName}: ${master.id}"
             mastersList.add(nameAndId)
         }
-        val myAdapter = ArrayAdapter(
+        val mastersSpinnerAdapter = ArrayAdapter(
             requireContext(),
             androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
             mastersList
         )
-        binding.spinnerMyMasters.adapter = myAdapter
+        binding.spinnerMyMasters.adapter = mastersSpinnerAdapter
     }
 }

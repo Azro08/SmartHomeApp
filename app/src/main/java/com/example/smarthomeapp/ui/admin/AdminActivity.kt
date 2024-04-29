@@ -39,6 +39,7 @@ class AdminActivity : AppCompatActivity() {
             setOf(
                 R.id.servicesFragment2,
                 R.id.editMasterFragment,
+                R.id.sendNotificationFragment,
                 R.id.orderHistoryFragment,
                 R.id.profileFragment2
             )
@@ -47,6 +48,7 @@ class AdminActivity : AppCompatActivity() {
         val topLevelDestinations = setOf(
             R.id.servicesFragment2,
             R.id.editMasterFragment,
+            R.id.sendNotificationFragment,
             R.id.orderHistoryFragment,
             R.id.profileFragment2
         )
