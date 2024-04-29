@@ -76,6 +76,7 @@ class UsersRepositoryImpl @Inject constructor(
 
 
     suspend fun getUser(userId: String): UserDto? {
+        Log.d("UserIdRep", userId)
         val userDocument = usersCollection.document(userId)
         val documentSnapshot = userDocument.get().await()
         return if (documentSnapshot.exists()) {
@@ -83,6 +84,15 @@ class UsersRepositoryImpl @Inject constructor(
         } else {
             null
         }
+    }
+
+    suspend fun getUserByFullNameAndId(fullName: String, id: String): UserDto? {
+        val querySnapshot =
+            usersCollection.whereEqualTo("fullName", fullName).whereEqualTo("id", id).get().await()
+        if (querySnapshot.isEmpty) {
+            return null
+        }
+        return querySnapshot.documents[0].toObject(UserDto::class.java)
     }
 
     override suspend fun deleteAccount(userId: String): String {

@@ -1,11 +1,7 @@
 package com.example.smarthomeapp.ui.user.order_service
 
-import android.app.DatePickerDialog
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -23,17 +19,16 @@ import com.example.smarthomeapp.databinding.FragmentOrderServiceBinding
 import com.example.smarthomeapp.domain.model.User
 import com.example.smarthomeapp.util.AuthManager
 import com.example.smarthomeapp.util.Constants
+import com.example.smarthomeapp.util.DateUtils
 import com.example.smarthomeapp.util.ScreenState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.util.Calendar
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class OrderServiceFragment : Fragment(R.layout.fragment_order_service) {
     private val binding by viewBinding(FragmentOrderServiceBinding::bind)
     private val viewModel: OrderServiceViewModel by viewModels()
-    private val timesList = listOf("10:00 - 12:00", "14:00 - 16:00", "18:00 - 19:00")
     private var title = ""
     private var busyTimes = ArrayList<String>()
     private var spinnerList = mutableListOf<String>()
@@ -51,43 +46,11 @@ class OrderServiceFragment : Fragment(R.layout.fragment_order_service) {
             }
         }
 
-        val myAdapter = ArrayAdapter(
-            requireContext(),
-            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
-            timesList
-        )
-        binding.spPickedTime.adapter = myAdapter
-
         binding.btnOrderDate.setOnClickListener {
-            setDate()
+            DateUtils.showDateTimePickerDialog(binding.tvOrderPickedDateAndTime, requireContext())
         }
 
         serviceId = arguments?.getString(Constants.SERVICE_KEY) ?: ""
-        Handler(Looper.getMainLooper()).postDelayed(
-            {
-                binding.ivGif.visibility = View.GONE
-                binding.llDetails.visibility = View.VISIBLE
-                if (authManager.getUser().isEmpty() || spinnerList.isEmpty()) {
-                    binding.llDetails.visibility = View.GONE
-                    binding.tvErrOrder.visibility = View.VISIBLE
-                    val errorText =
-                        "Something went wrong! \n service no longer available or no available masters"
-                    binding.tvErrOrder.text = errorText
-                }
-            }, 3000L
-        )
-
-    }
-
-    private fun setDate() {
-        val dialog = datePickerDialog()
-        dialog.show()
-        val year = dialog.findViewById<View>(
-            Resources.getSystem().getIdentifier("android:id/year", null, null)
-        )
-        if (year != null) {
-            year.visibility = View.GONE
-        }
     }
 
     private fun getMasters() {
@@ -115,16 +78,13 @@ class OrderServiceFragment : Fragment(R.layout.fragment_order_service) {
         }
     }
 
-
     private fun finishOrder(master: User) {
         val masterName = binding.spinnerMasters.selectedItem.toString()
         val clComment = binding.etClientComment.text.toString()
         val address = binding.etBuyerAddress.text.toString()
-        val date = binding.tvOrderPickedDate.text.toString()
-        val hrs = binding.spPickedTime.selectedItem.toString()
-        val timePicked = "$date $hrs"
+        val timePicked = binding.tvOrderPickedDateAndTime.text.toString()
 
-        if (TextUtils.isEmpty(date.trim()) || TextUtils.isEmpty(clComment.trim())) {
+        if (TextUtils.isEmpty(timePicked.trim()) || TextUtils.isEmpty(clComment.trim())) {
             // Handle empty fields error
             Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
             return
@@ -134,10 +94,14 @@ class OrderServiceFragment : Fragment(R.layout.fragment_order_service) {
 
         if (busyTimesList.contains(timePicked)) {
             // Master is busy at the selected time
-            Toast.makeText(requireContext(), "Мастер занят в это время", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.master_is_busy_at_this_time), Toast.LENGTH_SHORT
+            ).show()
         } else {
             // Master is available, proceed with order submission
             val order = Order(
+                id = Constants.generateRandomId(),
                 serviceId = serviceId,
                 buyer = authManager.getUser(),
                 phoneNum = binding.etBuyerPhoneNum.text.toString(),
@@ -180,27 +144,6 @@ class OrderServiceFragment : Fragment(R.layout.fragment_order_service) {
         }
     }
 
-    private fun datePickerDialog(): DatePickerDialog {
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
-        val datePickerDialog = DatePickerDialog(
-            requireContext(),
-            android.R.style.Theme_Material_Light_Dialog,
-            { _, pickedYear, monthOfYear, dayOfMonth ->
-                val dateText = "$dayOfMonth/$monthOfYear/$pickedYear"
-                binding.tvOrderPickedDate.text = dateText
-            },
-            year,
-            month,
-            day
-        )
-        // Show Date Picker
-        datePickerDialog.datePicker.minDate = (System.currentTimeMillis() - 1000)
-        return datePickerDialog
-    }
-
     private fun setSpinner(list: List<User>) {
         spinnerList.clear()
         for ((j, i) in list.withIndex()) {
@@ -212,6 +155,13 @@ class OrderServiceFragment : Fragment(R.layout.fragment_order_service) {
             spinnerList
         )
         binding.spinnerMasters.adapter = myAdapter
+        if (authManager.getUser().isEmpty() || spinnerList.isEmpty()) {
+            binding.llDetails.visibility = View.GONE
+            binding.tvErrOrder.visibility = View.VISIBLE
+            val errorText =
+                "Something went wrong! \n service no longer available or no available masters"
+            binding.tvErrOrder.text = errorText
+        }
     }
 
 }

@@ -29,8 +29,17 @@ class ServicesRepository @Inject constructor(
 
     suspend fun getService(id: String): Service? {
         return try {
-            serviceCollection.document(id).get().await().toObject(Service::class.java)!!
-        } catch (e: FirebaseFirestoreException) {
+            val querySnapshot = serviceCollection
+                .whereEqualTo("id", id)
+                .get().await()
+
+            val servicesList = querySnapshot.toObjects(Service::class.java)
+            if (servicesList.isNotEmpty()) {
+                servicesList[0] // Assuming productId is unique, returning the first item
+            } else {
+                null
+            }
+        } catch (e: Exception) {
             Log.d("ServicesRepository", "getService: ${e.message}")
             null
         }

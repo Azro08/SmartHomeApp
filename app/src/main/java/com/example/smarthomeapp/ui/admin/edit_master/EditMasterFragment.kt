@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -31,8 +32,10 @@ class EditMasterFragment : Fragment(R.layout.fragment_edit_master) {
         getAllMasters()
         setMenu()
         binding.btnShowMaster.setOnClickListener {
-            val masterId = binding.spinnerMyMasters.selectedItem.toString()
-            getMasterBusyTimes(masterId)
+            binding.spinnerMyMasters.selectedItem?.toString()?.let { masterNameAndId ->
+                val (fullName, id) = masterNameAndId.split(":").map { it.trim() }
+                getMasterBusyTimes(fullName, id)
+            }
         }
     }
 
@@ -64,9 +67,9 @@ class EditMasterFragment : Fragment(R.layout.fragment_edit_master) {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    private fun getMasterBusyTimes(masterId: String) {
+    private fun getMasterBusyTimes(fullName: String, masterId: String) {
         lifecycleScope.launch {
-            viewModel.getUser(masterId)
+            viewModel.getUser(fullName, masterId)
             viewModel.masterDetails.collect { state ->
                 when (state) {
 
@@ -118,8 +121,16 @@ class EditMasterFragment : Fragment(R.layout.fragment_edit_master) {
     }
 
     private fun setSpinner(masters: List<User>) {
+        mastersList.clear()
         for (master in masters) {
-            mastersList.add(master.fullName)
+            val nameAndId = "${master.fullName}: ${master.id}"
+            mastersList.add(nameAndId)
         }
+        val myAdapter = ArrayAdapter(
+            requireContext(),
+            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+            mastersList
+        )
+        binding.spinnerMyMasters.adapter = myAdapter
     }
 }

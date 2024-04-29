@@ -17,14 +17,6 @@
         android:textSize="28sp"
         android:visibility="gone" />
 
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/ivGif"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:background="@drawable/loadin" />
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -55,51 +47,22 @@
                 android:textColor="@color/blue"
                 android:textSize="16sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/btnOrderDate"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/calender_icon"
-                    android:importantForAccessibility="no" />
-
-                <ImageButton
-                    android:id="@+id/btnOrderTime"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="100dp"
-                    android:background="@drawable/time_icon"
-                    android:importantForAccessibility="no" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <ImageButton
+                android:id="@+id/btnOrderDate"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:background="@drawable/calender_icon"
+                android:importantForAccessibility="no" />
 
-                <TextView
-                    android:id="@+id/tvOrderPickedDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="70dp"
-                    android:textColor="@color/blue"
-                    android:textSize="16sp" />
-
-                <Spinner
-                    android:id="@+id/spPickedTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="80dp" />
-
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tvOrderPickedDateAndTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/blue"
+                android:textSize="16sp"
+                tools:text="2024/01/03 21:30" />
 
 
             <EditText

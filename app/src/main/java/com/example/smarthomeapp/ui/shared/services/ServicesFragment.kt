@@ -1,11 +1,12 @@
 package com.example.smarthomeapp.ui.shared.services
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -42,6 +43,7 @@ class ServicesFragment : Fragment(R.layout.fragment_services) {
             getServices()
             binding.swipeToRefreshLayout.isRefreshing = false
         }
+        search()
     }
 
     override fun onResume() {
@@ -50,17 +52,28 @@ class ServicesFragment : Fragment(R.layout.fragment_services) {
         super.onResume()
     }
 
+    private fun search() {
+        binding.editTextSearchService.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                val searchText = s.toString().trim()
+                val filteredList = viewModel.filterServicesList(searchText)
+                rvServicesAdapter?.updateServicesList(filteredList)
+            }
+        })
+    }
+
     private fun getServices() {
         lifecycleScope.launch {
             viewModel.services.collect { state ->
                 when (state) {
 
                     is ScreenState.Loading -> {}
-                    is ScreenState.Error -> Toast.makeText(
-                        requireContext(),
-                        state.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    is ScreenState.Error -> {
+                    }
 
                     is ScreenState.Success -> displayServices(state.data!!)
 

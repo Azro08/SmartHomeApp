@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/servicesFragment2"
         android:name="com.example.smarthomeapp.ui.shared.services.ServicesFragment"
-        android:label="fragment_services"
+        android:label="@string/services"
         tools:layout="@layout/fragment_services" >
         <action
             android:id="@+id/nav_services_add_service"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/editMasterFragment"
         android:name="com.example.smarthomeapp.ui.admin.edit_master.EditMasterFragment"
-        android:label="fragment_edit_master"
+        android:label="@string/masters"
         tools:layout="@layout/fragment_edit_master" >
         <action
             android:id="@+id/nav_edit_masters_add"
@@ -26,21 +26,21 @@
     <fragment
         android:id="@+id/orderHistoryFragment"
         android:name="com.example.smarthomeapp.ui.shared.order_history.OrderHistoryFragment"
-        android:label="fragment_order_history"
+        android:label="@string/history"
         tools:layout="@layout/fragment_order_history" />
     <dialog
         android:id="@+id/edit_master_add_master"
         android:name="com.example.smarthomeapp.ui.admin.add_master.AddMasterFragment"
-        android:label="fragment_add_master"
+        android:label="@string/add_master"
         tools:layout="@layout/fragment_add_master" />
     <fragment
         android:id="@+id/addServiceFragment"
         android:name="com.example.smarthomeapp.ui.admin.add_service.AddServiceFragment"
-        android:label="fragment_add_service"
+        android:label="@string/add_service"
         tools:layout="@layout/fragment_add_service" />
     <fragment
         android:id="@+id/profileFragment2"
         android:name="com.example.smarthomeapp.ui.shared.profile.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

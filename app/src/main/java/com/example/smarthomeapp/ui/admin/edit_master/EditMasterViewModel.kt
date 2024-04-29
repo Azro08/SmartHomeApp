@@ -34,9 +34,9 @@ class EditMasterViewModel @Inject constructor(
         }
     }
 
-    fun getUser(id: String) = viewModelScope.launch {
+    fun getUser(fullName : String,id: String) = viewModelScope.launch {
         try {
-            usersRepositoryImpl.getUser(id).let {
+            usersRepositoryImpl.getUserByFullNameAndId(fullName, id).let {
                 if (it != null) _masterDetails.value = ScreenState.Success(it.toUser())
                 else _masterDetails.value = ScreenState.Error("User details not Found")
             }

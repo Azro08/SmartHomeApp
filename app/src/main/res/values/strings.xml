@@ -48,4 +48,6 @@
     <string name="humidity">Humidity</string>
     <string name="set">Set</string>
     <string name="refresh">Refresh</string>
+    <string name="search">search</string>
+    <string name="master_is_busy_at_this_time">Master is busy at this time</string>
 </resources>

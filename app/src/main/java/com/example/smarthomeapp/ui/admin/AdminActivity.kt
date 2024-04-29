@@ -1,7 +1,7 @@
 package com.example.smarthomeapp.ui.admin
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -19,6 +19,14 @@ class AdminActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityAdminBinding.inflate(layoutInflater)
+        supportActionBar?.setBackgroundDrawable(
+            ColorDrawable(
+                getResources().getColor(
+                    R.color.light_blue,
+                    theme
+                )
+            )
+        )
         setContentView(binding.root)
         setBottomNavBar()
     }

@@ -7,10 +7,12 @@ import com.example.smarthomeapp.data.model.Service
 import com.example.smarthomeapp.data.repository.ServicesRepository
 import com.example.smarthomeapp.util.Constants
 import com.example.smarthomeapp.util.ScreenState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class ServiceDetailsViewModel @Inject constructor(
     private val servicesRepository: ServicesRepository,
     savedStateHandle: SavedStateHandle

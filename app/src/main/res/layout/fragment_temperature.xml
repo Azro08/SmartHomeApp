@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="144dp"
         android:text="@string/temperature"
         android:textColor="@color/black"
         android:fontFamily="cursive"
@@ -107,49 +107,5 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/tempControllerCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/humidityCard"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="horizontal"
-        android:layout_marginTop="50dp"
-        android:gravity="center">
-
-        <ImageButton
-            android:id="@+id/imageButtonIncTemp"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@drawable/add_icon"
-            android:contentDescription="@string/increase_temperature" />
-
-        <TextView
-            android:id="@+id/textViewEditedTemp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text = "40C"
-            android:textSize="48sp"
-            android:textColor="@color/black"/>
-
-        <ImageButton
-            android:id="@+id/imageButtonDecTemp"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@drawable/remove_icon"
-            android:contentDescription="@string/increase_temperature" />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/buttonSetTemp"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:text="@string/set"
-        android:backgroundTint="@color/blue"
-        app:layout_constraintTop_toBottomOf="@id/tempControllerCard"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

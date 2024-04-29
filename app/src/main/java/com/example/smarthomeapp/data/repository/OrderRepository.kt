@@ -14,6 +14,7 @@ class OrderRepository @Inject constructor(
     private val collection = firestore.collection("orders")
 
     suspend fun saveOrder(order: Order): String {
+        Log.d("OrderRepository", "saveOrder: $order")
         return try {
             collection.document(order.id).set(order).await()
             "Done"

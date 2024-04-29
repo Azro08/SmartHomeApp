@@ -33,4 +33,16 @@ class ServicesViewModel @Inject constructor(
         getServices()
     }
 
+    fun filterServicesList(query: String): List<Service> {
+        return when (val currentState = _services.value) {
+            is ScreenState.Success -> {
+                currentState.data?.filter { currentService ->
+                    currentService.title.contains(query, ignoreCase = true)
+                } ?: emptyList()
+            }
+
+            else -> emptyList()
+        }
+    }
+
 }
