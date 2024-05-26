@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/white"
+    android:background="@color/light_purple"
     tools:context=".ui.shared.profile.ProfileFragment">
 
     <ImageView
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        app:cardBackgroundColor="@color/light_blue"
+        app:cardBackgroundColor="@color/purple"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true">
@@ -37,6 +37,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/logout_icon"
+                android:layout_gravity="end"/>
+
+            <ImageButton
+                android:id="@+id/buttonLang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/language_icon"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="end"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -122,22 +130,23 @@
             <Button
                 android:id="@+id/buttonSaveProfile"
                 android:layout_marginTop="30dp"
-                android:backgroundTint="@color/blue"
+                android:backgroundTint="@color/light_purple"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:visibility="gone"
+                android:textColor="@color/black"
                 android:text="@string/save" />
 
             <Button
                 android:id="@+id/buttonEditProfile"
                 android:layout_marginTop="30dp"
-                android:backgroundTint="@color/dark_orange"
+                android:backgroundTint="@color/light_purple"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/edit"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

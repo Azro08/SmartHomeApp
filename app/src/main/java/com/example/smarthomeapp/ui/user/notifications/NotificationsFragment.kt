@@ -2,9 +2,11 @@ package com.example.smarthomeapp.ui.user.notifications
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.smarthomeapp.R
@@ -34,7 +36,14 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
                     is ScreenState.Loading -> {}
                     is ScreenState.Error -> {}
                     is ScreenState.Success -> {
-                        adapter = NotificationAdapter(state.data!!)
+                        adapter = NotificationAdapter(state.data!!){
+                            val bundle = Bundle().apply {
+                                putParcelable("notification", it)
+                            }
+
+                            findNavController().navigate(R.id.nav_notififcation_details, bundle)
+
+                        }
                         binding.rvNotifications.layoutManager =
                             LinearLayoutManager(requireContext())
                         binding.rvNotifications.setHasFixedSize(true)

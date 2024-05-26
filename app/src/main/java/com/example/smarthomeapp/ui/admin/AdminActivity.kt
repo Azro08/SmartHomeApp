@@ -1,5 +1,7 @@
 package com.example.smarthomeapp.ui.admin
 
+import android.content.Context
+import android.content.ContextWrapper
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
@@ -10,12 +12,22 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.smarthomeapp.R
 import com.example.smarthomeapp.databinding.ActivityAdminBinding
+import com.example.smarthomeapp.util.Constants
+import com.example.smarthomeapp.util.setLocale
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AdminActivity : AppCompatActivity() {
     private var _binding: ActivityAdminBinding? = null
     private val binding get() = _binding!!
+
+    override fun attachBaseContext(newBase: Context?) {
+        val lang = newBase?.getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE)
+            ?.getString(Constants.LANGUAGE_KEY, "en")!!.toString()
+        super.attachBaseContext(ContextWrapper(newBase.setLocale(lang)))
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityAdminBinding.inflate(layoutInflater)

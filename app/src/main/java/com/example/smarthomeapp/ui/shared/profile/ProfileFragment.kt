@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.example.smarthomeapp.R
 import com.example.smarthomeapp.data.model.UserDto
 import com.example.smarthomeapp.databinding.FragmentProfileBinding
 import com.example.smarthomeapp.ui.shared.auth.AuthActivity
@@ -40,6 +42,11 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        binding.buttonLang.setOnClickListener {
+            findNavController().navigate(R.id.nav_lang)
+        }
+
         if (firebaseAuth.currentUser?.uid.isNullOrEmpty()) {
             Toast.makeText(requireContext(), "You are not authorized", Toast.LENGTH_SHORT).show()
             logout()

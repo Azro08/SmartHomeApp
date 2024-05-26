@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
     android:padding="20dp"
+    android:background="@color/light_purple"
     tools:context=".ui.admin.edit_master.EditMasterFragment">
 
     <ImageView
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/master_id"
-        android:textColor="@color/blue"
+        android:textColor="@color/purple"
         android:textSize="18sp" />
 
 
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/busy_times"
-        android:textColor="@color/blue"
+        android:textColor="@color/purple"
         android:textSize="18sp" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="50dp"
-        android:backgroundTint="@color/blue"
+        android:backgroundTint="@color/purple"
         android:text="@string/show"
         android:textColor="@color/white" />
 

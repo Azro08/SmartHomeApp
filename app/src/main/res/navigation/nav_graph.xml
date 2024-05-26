@@ -9,7 +9,11 @@
         android:id="@+id/notificationsFragment"
         android:name="com.example.smarthomeapp.ui.user.notifications.NotificationsFragment"
         android:label="@string/notification"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_notifications" >
+        <action
+            android:id="@+id/nav_notififcation_details"
+            app:destination="@id/notificationDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/temperatureFragment"
         android:name="com.example.smarthomeapp.ui.user.temperature.TemperatureFragment"
@@ -42,5 +46,18 @@
         android:id="@+id/profileFragment"
         android:name="com.example.smarthomeapp.ui.shared.profile.ProfileFragment"
         android:label="@string/profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/nav_lang"
+            app:destination="@id/languageFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationDetailsFragment"
+        android:name="com.example.smarthomeapp.ui.user.notifications.details.NotificationDetailsFragment"
+        android:label="fragment_notification_details"
+        tools:layout="@layout/fragment_notification_details" />
+    <fragment
+        android:id="@+id/languageFragment2"
+        android:name="com.example.smarthomeapp.ui.shared.language.LanguageFragment"
+        android:label="LanguageFragment" />
 </navigation>

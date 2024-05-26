@@ -1,5 +1,7 @@
 package com.example.smarthomeapp
 
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -19,6 +21,8 @@ import com.example.smarthomeapp.ui.admin.AdminActivity
 import com.example.smarthomeapp.ui.shared.auth.AuthActivity
 import com.example.smarthomeapp.ui.shared.order_history.OrderHistoryFragment
 import com.example.smarthomeapp.util.AuthManager
+import com.example.smarthomeapp.util.Constants
+import com.example.smarthomeapp.util.setLocale
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -29,6 +33,13 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var authManager: AuthManager
+
+    override fun attachBaseContext(newBase: Context?) {
+        val lang = newBase?.getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE)
+            ?.getString(Constants.LANGUAGE_KEY, "en")!!.toString()
+        super.attachBaseContext(ContextWrapper(newBase.setLocale(lang)))
+    }
+
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
@@ -100,7 +111,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun enterAsMaster() {
         this.supportFragmentManager.beginTransaction()
-            .replace(R.id.nav_host,OrderHistoryFragment()).commit()
+            .replace(R.id.nav_host, OrderHistoryFragment()).commit()
 
     }
 

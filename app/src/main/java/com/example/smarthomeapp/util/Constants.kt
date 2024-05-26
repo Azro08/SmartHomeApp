@@ -3,6 +3,7 @@ package com.example.smarthomeapp.util
 import kotlin.random.Random
 
 object Constants {
+    const val LANGUAGE_KEY = "language_key"
     const val SHARED_PREF_NAME = "user_pref"
     const val USER_KEY = "user_key"
     const val FCM_TOKEN_KEY = "fcm_token_key"

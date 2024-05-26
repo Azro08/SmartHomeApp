@@ -23,7 +23,7 @@
         app:tabGravity="fill"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/black"
-        app:tabTextColor="@color/blue" />
+        app:tabTextColor="@color/purple" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/authViewPager"

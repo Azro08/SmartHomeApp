@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:backgroundTint="@color/blue"
+        android:backgroundTint="@color/purple"
         android:text="@string/send_notification"
         android:textAllCaps="false"
         android:textColor="@color/white" />

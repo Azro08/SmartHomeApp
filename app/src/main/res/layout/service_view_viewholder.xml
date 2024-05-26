@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="150dp"
     android:layout_margin="8dp"
-    android:background="@drawable/pink_rounded_edges_background"
+    android:background="@drawable/purple_rounded_edges_background"
     android:id="@+id/ll"
     android:padding="10dp">
 
@@ -14,17 +14,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text = "Service name"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="50sp"
         android:layout_weight="1"/>
 
-    <TextView
-        android:id="@+id/tvServicePrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="@color/blue"
-        tools:text="200"/>
+<!--    <TextView-->
+<!--        android:id="@+id/tvServicePrice"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="30sp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:textColor="@color/white"-->
+<!--        tools:text="200"/>-->
 
 
 </LinearLayout>

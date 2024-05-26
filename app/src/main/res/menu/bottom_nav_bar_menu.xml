@@ -4,21 +4,21 @@
     <item
         android:id="@+id/notificationsFragment"
         android:title="@string/notification"
-        android:icon="@drawable/notifications_icon"/>
+        android:icon="@drawable/nav_bar_item_background"/>
 
     <item
         android:id="@+id/temperatureFragment"
         android:title="@string/temperature"
-        android:icon="@drawable/temperature_icon"/>
+        android:icon="@drawable/nav_bar_item_background"/>
 
     <item
         android:id="@+id/servicesFragment"
         android:title="@string/services"
-        android:icon="@drawable/services_icon"/>
+        android:icon="@drawable/nav_bar_item_background"/>
 
     <item
         android:id="@+id/profileFragment"
         android:title="@string/profile"
-        android:icon="@drawable/profile_icon"/>
+        android:icon="@drawable/nav_bar_item_background"/>
 
 </menu>

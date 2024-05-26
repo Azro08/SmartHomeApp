@@ -3,28 +3,28 @@
 
     <item
         android:id="@+id/servicesFragment2"
-        android:icon="@drawable/services_icon"
+        android:icon="@drawable/nav_bar_item_background"
         android:title="@string/services" />
 
     <item
         android:id="@+id/editMasterFragment"
-        android:icon="@drawable/master_icon"
+        android:icon="@drawable/nav_bar_item_background"
         android:title="@string/edit_masters" />
 
     <item
         android:id="@+id/sendNotificationFragment"
         android:title="@string/notification"
-        android:icon="@drawable/notifications_icon"/>
+        android:icon="@drawable/nav_bar_item_background"/>
 
     <item
         android:id="@+id/orderHistoryFragment"
-        android:icon="@drawable/history_icon"
+        android:icon="@drawable/nav_bar_item_background"
         android:title="@string/history" />
 
 
     <item
         android:id="@+id/profileFragment2"
-        android:icon="@drawable/profile_icon"
+        android:icon="@drawable/nav_bar_item_background"
         android:title="@string/profile" />
 
 </menu>

@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
+    android:background="@color/light_purple"
     tools:context=".ui.user.order_service.OrderServiceFragment">
 
     <TextView
@@ -35,7 +35,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:text="@string/order"
-                android:textColor="@color/blue"
+                android:textColor="@color/purple"
                 android:textSize="24sp" />
 
 
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:text="@string/date_and_time"
-                android:textColor="@color/blue"
+                android:textColor="@color/purple"
                 android:textSize="16sp" />
 
             <ImageButton
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/blue"
+                android:textColor="@color/purple"
                 android:textSize="16sp"
                 tools:text="2024/01/03 21:30" />
 
@@ -145,14 +145,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:backgroundTint="@color/blue"
+                android:backgroundTint="@color/purple"
                 android:text="@string/order"
                 android:textColor="@color/white"
                 android:visibility="gone" />
 
-
         </LinearLayout>
-
 
     </ScrollView>
 </FrameLayout>

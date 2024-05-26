@@ -8,23 +8,36 @@ import com.example.smarthomeapp.data.model.Notification
 import com.example.smarthomeapp.data.model.Priority
 import com.example.smarthomeapp.databinding.NotificationViewHolderBinding
 
-class NotificationAdapter(private val notifications: List<Notification>) :
+class NotificationAdapter(
+    private val notifications: List<Notification>,
+    private val listener: (notification: Notification) -> Unit
+) :
     RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
 
-    inner class ViewHolder(private val binding: NotificationViewHolderBinding) :
+    inner class ViewHolder(
+        private val binding: NotificationViewHolderBinding,
+        listener: (notification: Notification) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(notification: Notification) {
-            binding.textViewNotificationTitle.text = notification.title
-            binding.textViewNotificationMessage.text = notification.message
-            binding.orderTime.text = notification.dateAndTime
+        private var notification : Notification? = null
+        fun bind(currentNotification: Notification) {
+            binding.textViewNotificationTitle.text = currentNotification.title
+            binding.textViewNotificationMessage.text = currentNotification.message
+            binding.orderTime.text = currentNotification.dateAndTime
 
             // Apply background color based on priority
-            when (notification.priority) {
+            when (currentNotification.priority) {
                 Priority.HIGH.name -> binding.llNotification.setBackgroundResource(R.drawable.orange_rounded_edges_background)
                 Priority.MEDIUM.name -> binding.llNotification.setBackgroundResource(R.drawable.blue_rounded_edges_background)
-                Priority.LOW.name -> binding.llNotification.setBackgroundResource(R.drawable.light_blue_rounded_edges_background)
+                Priority.LOW.name -> binding.llNotification.setBackgroundResource(R.drawable.purple_rounded_edges_background)
                 else -> binding.llNotification.setBackgroundResource(R.drawable.blue_rounded_edges_background)
+            }
+            notification = currentNotification
+        }
+
+        init {
+            binding.root.setOnClickListener {
+                listener(notification!!)
             }
         }
     }
@@ -36,7 +49,7 @@ class NotificationAdapter(private val notifications: List<Notification>) :
                 parent,
                 false
             )
-        return ViewHolder(binding)
+        return ViewHolder(binding, listener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

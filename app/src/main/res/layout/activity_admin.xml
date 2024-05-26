@@ -25,10 +25,11 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/adminNavView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_marginEnd="0dp"
         app:itemTextColor="@color/black"
-        android:background="@color/light_blue"
+        app:itemIconTint="@color/purple"
+        app:itemIconSize="60dp"
         app:menu="@menu/admin_bottom_nav_bar_menu" />
 
 </LinearLayout>

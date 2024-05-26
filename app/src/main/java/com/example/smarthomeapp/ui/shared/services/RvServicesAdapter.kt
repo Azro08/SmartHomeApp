@@ -21,7 +21,7 @@ class RvServicesAdapter
         fun bind(myService: Service) {
             binding.tvServiceTitle.text = myService.title
             val price = myService.price.toString() + " BYN"
-            binding.tvServicePrice.text = price
+//            binding.tvServicePrice.text = price
             service = myService
         }
 
